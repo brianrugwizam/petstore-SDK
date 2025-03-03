@@ -1,0 +1,326 @@
+openapi: 3.0.0
+info:
+  title: PetStore API
+  version: "1.0"
+servers:
+- url: http://127.0.0.1:5000
+paths:
+  /pets:
+    get:
+      operationId: listPets
+      parameters:
+      - description: How many items to return at one time (max 100)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          maximum: 100
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listPets_200_response'
+          description: A list of Pets
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      summary: List all pets
+      tags:
+      - pets
+      x-ipcgo-filterable:
+        $ref: '#/components/schemas/Pet'
+    post:
+      operationId: createPet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createPet_201_response'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create a pet
+      tags:
+      - pets
+  /pets/{id}:
+    get:
+      operationId: showPetById
+      parameters:
+      - description: The id of the pet to retrieve
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createPet_201_response'
+          description: Expected response to a valid request
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Pet not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal server error
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Info for a specific pet
+      tags:
+      - pets
+  /store/order:
+    post:
+      operationId: placeOrder
+      requestBody:
+        content:
+          application/json:
+            example:
+              id: 10
+              name: Bestelling
+            schema:
+              $ref: '#/components/schemas/DefaultResponse'
+      responses:
+        "200":
+          description: succesfil operation
+        "405":
+          description: Invalid input
+      summary: Place an order for a pet
+      tags:
+      - store
+  /store/order/{orderId}:
+    delete:
+      operationId: deleteOrder
+      parameters:
+      - description: ID of order that needs to be deleted
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Order not found
+    get:
+      operationId: getOrderById
+      parameters:
+      - description: ID of order that needs to be fetched
+        explode: false
+        in: path
+        name: orderId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              id: 10
+              name: Bestelling
+            schema:
+              $ref: '#/components/schemas/DefaultResponse'
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+          description: succesfil operation
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Order not found
+      summary: Find purchase order by ID
+      tags:
+      - store
+components:
+  schemas:
+    Pet:
+      example:
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tag: tag
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          minLength: 2
+          pattern: "^[a-z0-9]+$"
+          type: string
+        tag:
+          type: string
+      required:
+      - id
+      - name
+      - tag
+      type: object
+    DefaultPaginated:
+      properties:
+        _meta:
+          $ref: '#/components/schemas/DefaultPaginated__meta'
+        errors:
+          description: "Errors specifies a list of errors that occurred, can be filled\
+            \ using error handlers."
+          type: object
+      type: object
+    DefaultResponse:
+      example:
+        _meta:
+          traceId: traceId
+        errors: "{}"
+      properties:
+        _meta:
+          $ref: '#/components/schemas/DefaultResponse__meta'
+        errors:
+          description: "Errors specifies a list of errors that occurred, can be filled\
+            \ using error handlers."
+          type: object
+      type: object
+    Error:
+      example:
+        code: 1
+        message: message
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    listPets_200_response:
+      allOf:
+      - $ref: '#/components/schemas/DefaultPaginated'
+      - properties:
+          data:
+            items:
+              $ref: '#/components/schemas/Pet'
+            type: array
+        type: object
+      example:
+        data:
+        - name: name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tag: tag
+        - name: name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tag: tag
+        _meta:
+          traceId: traceId
+          total: 6
+          limit: 0
+        errors: "{}"
+    createPet_201_response:
+      allOf:
+      - $ref: '#/components/schemas/DefaultResponse'
+      - properties:
+          data:
+            $ref: '#/components/schemas/Pet'
+        type: object
+      example:
+        data:
+          name: name
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tag: tag
+        _meta:
+          traceId: traceId
+        errors: "{}"
+    DefaultPaginated__meta:
+      description: "MetaData contains metadata of the response, such as record count,\
+        \ pagination and other additional information."
+      example:
+        traceId: traceId
+        total: 6
+        limit: 0
+      properties:
+        traceId:
+          type: string
+        limit:
+          type: integer
+        total:
+          format: int64
+          type: integer
+      type: object
+    DefaultResponse__meta:
+      description: "MetaData contains metadata of the response, such as record count,\
+        \ pagination and other additional information."
+      example:
+        traceId: traceId
+      properties:
+        traceId:
+          type: string
+      type: object
