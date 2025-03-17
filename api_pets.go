@@ -439,3 +439,168 @@ func (a *PetsAPIService) ShowPetByIdExecute(r ApiShowPetByIdRequest) (*CreatePet
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+// UpdatePet Update a pet
+type ApiUpdatePetRequest struct {
+	ctx context.Context
+	ApiService *PetsAPIService
+	id string
+	pet *Pet
+}
+
+func (r ApiUpdatePetRequest) Pet(pet Pet) ApiUpdatePetRequest {
+	r.pet = &pet
+	return r
+}
+
+// Voer de update uit
+func (r ApiUpdatePetRequest) Execute() (*CreatePet201Response, *http.Response, error) {
+	return r.ApiService.UpdatePetExecute(r)
+} 
+
+
+func (a *PetsAPIService) UpdatePet(ctx context.Context, id string) ApiUpdatePetRequest {
+	return ApiUpdatePetRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Voert het verzoek uit om een huisdier bij te werken
+func (a *PetsAPIService) UpdatePetExecute(r ApiUpdatePetRequest) (*CreatePet201Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody interface{}
+		formFiles []formFile
+		localVarReturnValue *CreatePet201Response
+	)
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PetsApiService.UpdatePet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	//Endpoint voor de update call
+	localVarPath := localBasePath + "/pets/{id}"
+	localBasePath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.pet == nil {
+		return localVarReturnValue, nil, reportError("pet is required and must be specified")
+	}
+
+	// Content-type
+	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-type"] = localVarHTTPContentType
+	}
+
+	// Stel Accept-header in
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams ["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	localVarPostBody = r.pet
+
+	req, err := a.client.prepareRequest(r.ctx, localBasePath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body: localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+	
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body: localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// DeletePet Delete a Pet
+type ApiDeletePetRequest struct {
+	ctx context.Context
+	ApiService *PetsAPIService
+	id string
+}
+
+// Voer de Delete uit
+func (r ApiDeletePetRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeletePetExecute(r)
+} 
+// Delete een pet op basis van ID
+
+func (a *PetsAPIService) DeletePet(ctx context.Context, id string) ApiDeletePetRequest {
+	return ApiDeletePetRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Voert het verzoek uit om een huisdier te verwijderen
+func (a *PetsAPIService) DeletePetExecute(r ApiDeletePetRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody interface{}
+		formFiles []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PetsApiService.DeletePet")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	//Endpoint voor de update call
+	localVarPath := localBasePath + "/pets/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	return localVarHTTPResponse, nil
+}
