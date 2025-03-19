@@ -567,7 +567,7 @@ func (a *PetsAPIService) DeletePet(ctx context.Context, id string) ApiDeletePetR
 // Voert het verzoek uit om een huisdier te verwijderen
 func (a *PetsAPIService) DeletePetExecute(r ApiDeletePetRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPut
+		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody interface{}
 		formFiles []formFile
 	)
@@ -577,7 +577,6 @@ func (a *PetsAPIService) DeletePetExecute(r ApiDeletePetRequest) (*http.Response
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	//Endpoint voor de update call
 	localVarPath := localBasePath + "/pets/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 
@@ -585,8 +584,18 @@ func (a *PetsAPIService) DeletePetExecute(r ApiDeletePetRequest) (*http.Response
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
 	// Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
+
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
@@ -601,6 +610,22 @@ func (a *PetsAPIService) DeletePetExecute(r ApiDeletePetRequest) (*http.Response
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarHTTPResponse, err
 	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
 
 	return localVarHTTPResponse, nil
 }
