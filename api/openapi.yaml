@@ -159,6 +159,12 @@ paths:
           format: uuid
       summary: edit a specific pet
       operationId: UpdatePet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
       tags:
         - pets
       responses:

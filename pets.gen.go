@@ -22,51 +22,51 @@ import (
 
 // PetsAPI holds the operations grouped on the 'pets' tag.
 type PetsAPI interface {
-	// ListPets Creates a new ListPetsRequest for 'ListPets'
+	// ListPets creates a new ListPetsRequest for 'ListPets'
 	// @Summary List all pets
 	// @Tags [pets]
 	// @Param limit query How many items to return at one time (max 100)
-	// @Success 200 ListPetsOK
-	// @Failure 400 ListPetsBadRequest
-	// @Failure 401 ListPetsUnauthorized
-	// @Failure 402 ListPetsPaymentRequired
-	// @Failure 403 ListPetsForbidden
-	// @Failure 404 ListPetsNotFound
-	// @Failure 405 ListPetsMethodNotAllowed
-	// @Failure 406 ListPetsNotAcceptable
-	// @Failure 407 ListPetsProxyAuthRequired
-	// @Failure 408 ListPetsRequestTimeout
-	// @Failure 409 ListPetsConflict
-	// @Failure 410 ListPetsGone
-	// @Failure 411 ListPetsLengthRequired
-	// @Failure 412 ListPetsPreconditionFailed
-	// @Failure 413 ListPetsRequestEntityTooLarge
-	// @Failure 414 ListPetsRequestURITooLong
-	// @Failure 415 ListPetsUnsupportedMediaType
-	// @Failure 416 ListPetsRequestedRangeNotSatisfiable
-	// @Failure 417 ListPetsExpectationFailed
-	// @Failure 418 ListPetsTeapot
-	// @Failure 421 ListPetsMisdirectedRequest
-	// @Failure 422 ListPetsUnprocessableEntity
-	// @Failure 423 ListPetsLocked
-	// @Failure 424 ListPetsFailedDependency
-	// @Failure 425 ListPetsTooEarly
-	// @Failure 426 ListPetsUpgradeRequired
-	// @Failure 428 ListPetsPreconditionRequired
-	// @Failure 429 ListPetsTooManyRequests
-	// @Failure 431 ListPetsRequestHeaderFieldsTooLarge
-	// @Failure 451 ListPetsUnavailableForLegalReasons
-	// @Failure 500 ListPetsInternalServerError
-	// @Failure 501 ListPetsNotImplemented
-	// @Failure 502 ListPetsBadGateway
-	// @Failure 503 ListPetsServiceUnavailable
-	// @Failure 504 ListPetsGatewayTimeout
-	// @Failure 505 ListPetsHTTPVersionNotSupported
-	// @Failure 506 ListPetsVariantAlsoNegotiates
-	// @Failure 507 ListPetsInsufficientStorage
-	// @Failure 508 ListPetsLoopDetected
-	// @Failure 510 ListPetsNotExtended
-	// @Failure 511 ListPetsNetworkAuthenticationRequired
+	// @Success 200 listPetsOK
+	// @Failure 400 listPetsBadRequest
+	// @Failure 401 listPetsUnauthorized
+	// @Failure 402 listPetsPaymentRequired
+	// @Failure 403 listPetsForbidden
+	// @Failure 404 listPetsNotFound
+	// @Failure 405 listPetsMethodNotAllowed
+	// @Failure 406 listPetsNotAcceptable
+	// @Failure 407 listPetsProxyAuthRequired
+	// @Failure 408 listPetsRequestTimeout
+	// @Failure 409 listPetsConflict
+	// @Failure 410 listPetsGone
+	// @Failure 411 listPetsLengthRequired
+	// @Failure 412 listPetsPreconditionFailed
+	// @Failure 413 listPetsRequestEntityTooLarge
+	// @Failure 414 listPetsRequestURITooLong
+	// @Failure 415 listPetsUnsupportedMediaType
+	// @Failure 416 listPetsRequestedRangeNotSatisfiable
+	// @Failure 417 listPetsExpectationFailed
+	// @Failure 418 listPetsTeapot
+	// @Failure 421 listPetsMisdirectedRequest
+	// @Failure 422 listPetsUnprocessableEntity
+	// @Failure 423 listPetsLocked
+	// @Failure 424 listPetsFailedDependency
+	// @Failure 425 listPetsTooEarly
+	// @Failure 426 listPetsUpgradeRequired
+	// @Failure 428 listPetsPreconditionRequired
+	// @Failure 429 listPetsTooManyRequests
+	// @Failure 431 listPetsRequestHeaderFieldsTooLarge
+	// @Failure 451 listPetsUnavailableForLegalReasons
+	// @Failure 500 listPetsInternalServerError
+	// @Failure 501 listPetsNotImplemented
+	// @Failure 502 listPetsBadGateway
+	// @Failure 503 listPetsServiceUnavailable
+	// @Failure 504 listPetsGatewayTimeout
+	// @Failure 505 listPetsHTTPVersionNotSupported
+	// @Failure 506 listPetsVariantAlsoNegotiates
+	// @Failure 507 listPetsInsufficientStorage
+	// @Failure 508 listPetsLoopDetected
+	// @Failure 510 listPetsNotExtended
+	// @Failure 511 listPetsNetworkAuthenticationRequired
 	// @Router GET [/pets]
 	//
 	// The request can be executed using ListPetsRequest.Execute()
@@ -74,52 +74,52 @@ type PetsAPI interface {
 
 	// ListPetsExecute executes a ListPetsRequest to return one
 	// of the possible ListPets success/error responses, the raw *http.Response and an error
-	ListPetsExecute(ListPetsRequest) (ListPetsSuccess, ListPetsError, *http.Response, error)
+	ListPetsExecute(ListPetsRequest) (listPetsSuccess, listPetsError, *http.Response, error)
 
-	// CreatePet Creates a new CreatePetRequest for 'CreatePet'
+	// CreatePet creates a new CreatePetRequest for 'CreatePet'
 	// @Summary Create a pet
 	// @Tags [pets]
-	// @Success 201 CreatePetCreated
-	// @Failure 400 CreatePetBadRequest
-	// @Failure 401 CreatePetUnauthorized
-	// @Failure 402 CreatePetPaymentRequired
-	// @Failure 403 CreatePetForbidden
-	// @Failure 404 CreatePetNotFound
-	// @Failure 405 CreatePetMethodNotAllowed
-	// @Failure 406 CreatePetNotAcceptable
-	// @Failure 407 CreatePetProxyAuthRequired
-	// @Failure 408 CreatePetRequestTimeout
-	// @Failure 409 CreatePetConflict
-	// @Failure 410 CreatePetGone
-	// @Failure 411 CreatePetLengthRequired
-	// @Failure 412 CreatePetPreconditionFailed
-	// @Failure 413 CreatePetRequestEntityTooLarge
-	// @Failure 414 CreatePetRequestURITooLong
-	// @Failure 415 CreatePetUnsupportedMediaType
-	// @Failure 416 CreatePetRequestedRangeNotSatisfiable
-	// @Failure 417 CreatePetExpectationFailed
-	// @Failure 418 CreatePetTeapot
-	// @Failure 421 CreatePetMisdirectedRequest
-	// @Failure 422 CreatePetUnprocessableEntity
-	// @Failure 423 CreatePetLocked
-	// @Failure 424 CreatePetFailedDependency
-	// @Failure 425 CreatePetTooEarly
-	// @Failure 426 CreatePetUpgradeRequired
-	// @Failure 428 CreatePetPreconditionRequired
-	// @Failure 429 CreatePetTooManyRequests
-	// @Failure 431 CreatePetRequestHeaderFieldsTooLarge
-	// @Failure 451 CreatePetUnavailableForLegalReasons
-	// @Failure 500 CreatePetInternalServerError
-	// @Failure 501 CreatePetNotImplemented
-	// @Failure 502 CreatePetBadGateway
-	// @Failure 503 CreatePetServiceUnavailable
-	// @Failure 504 CreatePetGatewayTimeout
-	// @Failure 505 CreatePetHTTPVersionNotSupported
-	// @Failure 506 CreatePetVariantAlsoNegotiates
-	// @Failure 507 CreatePetInsufficientStorage
-	// @Failure 508 CreatePetLoopDetected
-	// @Failure 510 CreatePetNotExtended
-	// @Failure 511 CreatePetNetworkAuthenticationRequired
+	// @Success 201 createPetCreated
+	// @Failure 400 createPetBadRequest
+	// @Failure 401 createPetUnauthorized
+	// @Failure 402 createPetPaymentRequired
+	// @Failure 403 createPetForbidden
+	// @Failure 404 createPetNotFound
+	// @Failure 405 createPetMethodNotAllowed
+	// @Failure 406 createPetNotAcceptable
+	// @Failure 407 createPetProxyAuthRequired
+	// @Failure 408 createPetRequestTimeout
+	// @Failure 409 createPetConflict
+	// @Failure 410 createPetGone
+	// @Failure 411 createPetLengthRequired
+	// @Failure 412 createPetPreconditionFailed
+	// @Failure 413 createPetRequestEntityTooLarge
+	// @Failure 414 createPetRequestURITooLong
+	// @Failure 415 createPetUnsupportedMediaType
+	// @Failure 416 createPetRequestedRangeNotSatisfiable
+	// @Failure 417 createPetExpectationFailed
+	// @Failure 418 createPetTeapot
+	// @Failure 421 createPetMisdirectedRequest
+	// @Failure 422 createPetUnprocessableEntity
+	// @Failure 423 createPetLocked
+	// @Failure 424 createPetFailedDependency
+	// @Failure 425 createPetTooEarly
+	// @Failure 426 createPetUpgradeRequired
+	// @Failure 428 createPetPreconditionRequired
+	// @Failure 429 createPetTooManyRequests
+	// @Failure 431 createPetRequestHeaderFieldsTooLarge
+	// @Failure 451 createPetUnavailableForLegalReasons
+	// @Failure 500 createPetInternalServerError
+	// @Failure 501 createPetNotImplemented
+	// @Failure 502 createPetBadGateway
+	// @Failure 503 createPetServiceUnavailable
+	// @Failure 504 createPetGatewayTimeout
+	// @Failure 505 createPetHTTPVersionNotSupported
+	// @Failure 506 createPetVariantAlsoNegotiates
+	// @Failure 507 createPetInsufficientStorage
+	// @Failure 508 createPetLoopDetected
+	// @Failure 510 createPetNotExtended
+	// @Failure 511 createPetNetworkAuthenticationRequired
 	// @Router POST [/pets]
 	//
 	// The request can be executed using CreatePetRequest.Execute()
@@ -127,16 +127,16 @@ type PetsAPI interface {
 
 	// CreatePetExecute executes a CreatePetRequest to return one
 	// of the possible CreatePet success/error responses, the raw *http.Response and an error
-	CreatePetExecute(CreatePetRequest) (CreatePetSuccess, CreatePetError, *http.Response, error)
+	CreatePetExecute(CreatePetRequest) (createPetSuccess, createPetError, *http.Response, error)
 
-	// DeletePet Creates a new DeletePetRequest for 'DeletePet'
+	// DeletePet creates a new DeletePetRequest for 'DeletePet'
 	// @Summary Delete a pet by ID
 	// @Tags [pets]
 	// @Param id path The id of the pet to retrieve
-	// @Success 204 DeletePetNoContent
-	// @Failure 400 DeletePetBadRequest
-	// @Failure 404 DeletePetNotFound
-	// @Failure 500 DeletePetInternalServerError
+	// @Success 204 deletePetNoContent
+	// @Failure 400 deletePetBadRequest
+	// @Failure 404 deletePetNotFound
+	// @Failure 500 deletePetInternalServerError
 	// @Router DELETE [/pets/{id}]
 	//
 	// The request can be executed using DeletePetRequest.Execute()
@@ -144,53 +144,53 @@ type PetsAPI interface {
 
 	// DeletePetExecute executes a DeletePetRequest to return one
 	// of the possible DeletePet success/error responses, the raw *http.Response and an error
-	DeletePetExecute(DeletePetRequest) (DeletePetSuccess, DeletePetError, *http.Response, error)
+	DeletePetExecute(DeletePetRequest) (deletePetSuccess, deletePetError, *http.Response, error)
 
-	// ShowPetByID Creates a new ShowPetByIDRequest for 'ShowPetById'
+	// ShowPetByID creates a new ShowPetByIDRequest for 'ShowPetById'
 	// @Summary Info for a specific pet
 	// @Tags [pets]
 	// @Param id path The id of the pet to retrieve
-	// @Success 200 ShowPetByIDOK
-	// @Failure 400 ShowPetByIDBadRequest
-	// @Failure 401 ShowPetByIDUnauthorized
-	// @Failure 402 ShowPetByIDPaymentRequired
-	// @Failure 403 ShowPetByIDForbidden
-	// @Failure 404 ShowPetByIDNotFound
-	// @Failure 405 ShowPetByIDMethodNotAllowed
-	// @Failure 406 ShowPetByIDNotAcceptable
-	// @Failure 407 ShowPetByIDProxyAuthRequired
-	// @Failure 408 ShowPetByIDRequestTimeout
-	// @Failure 409 ShowPetByIDConflict
-	// @Failure 410 ShowPetByIDGone
-	// @Failure 411 ShowPetByIDLengthRequired
-	// @Failure 412 ShowPetByIDPreconditionFailed
-	// @Failure 413 ShowPetByIDRequestEntityTooLarge
-	// @Failure 414 ShowPetByIDRequestURITooLong
-	// @Failure 415 ShowPetByIDUnsupportedMediaType
-	// @Failure 416 ShowPetByIDRequestedRangeNotSatisfiable
-	// @Failure 417 ShowPetByIDExpectationFailed
-	// @Failure 418 ShowPetByIDTeapot
-	// @Failure 421 ShowPetByIDMisdirectedRequest
-	// @Failure 422 ShowPetByIDUnprocessableEntity
-	// @Failure 423 ShowPetByIDLocked
-	// @Failure 424 ShowPetByIDFailedDependency
-	// @Failure 425 ShowPetByIDTooEarly
-	// @Failure 426 ShowPetByIDUpgradeRequired
-	// @Failure 428 ShowPetByIDPreconditionRequired
-	// @Failure 429 ShowPetByIDTooManyRequests
-	// @Failure 431 ShowPetByIDRequestHeaderFieldsTooLarge
-	// @Failure 451 ShowPetByIDUnavailableForLegalReasons
-	// @Failure 500 ShowPetByIDInternalServerError
-	// @Failure 501 ShowPetByIDNotImplemented
-	// @Failure 502 ShowPetByIDBadGateway
-	// @Failure 503 ShowPetByIDServiceUnavailable
-	// @Failure 504 ShowPetByIDGatewayTimeout
-	// @Failure 505 ShowPetByIDHTTPVersionNotSupported
-	// @Failure 506 ShowPetByIDVariantAlsoNegotiates
-	// @Failure 507 ShowPetByIDInsufficientStorage
-	// @Failure 508 ShowPetByIDLoopDetected
-	// @Failure 510 ShowPetByIDNotExtended
-	// @Failure 511 ShowPetByIDNetworkAuthenticationRequired
+	// @Success 200 showPetByIDOK
+	// @Failure 400 showPetByIDBadRequest
+	// @Failure 401 showPetByIDUnauthorized
+	// @Failure 402 showPetByIDPaymentRequired
+	// @Failure 403 showPetByIDForbidden
+	// @Failure 404 showPetByIDNotFound
+	// @Failure 405 showPetByIDMethodNotAllowed
+	// @Failure 406 showPetByIDNotAcceptable
+	// @Failure 407 showPetByIDProxyAuthRequired
+	// @Failure 408 showPetByIDRequestTimeout
+	// @Failure 409 showPetByIDConflict
+	// @Failure 410 showPetByIDGone
+	// @Failure 411 showPetByIDLengthRequired
+	// @Failure 412 showPetByIDPreconditionFailed
+	// @Failure 413 showPetByIDRequestEntityTooLarge
+	// @Failure 414 showPetByIDRequestURITooLong
+	// @Failure 415 showPetByIDUnsupportedMediaType
+	// @Failure 416 showPetByIDRequestedRangeNotSatisfiable
+	// @Failure 417 showPetByIDExpectationFailed
+	// @Failure 418 showPetByIDTeapot
+	// @Failure 421 showPetByIDMisdirectedRequest
+	// @Failure 422 showPetByIDUnprocessableEntity
+	// @Failure 423 showPetByIDLocked
+	// @Failure 424 showPetByIDFailedDependency
+	// @Failure 425 showPetByIDTooEarly
+	// @Failure 426 showPetByIDUpgradeRequired
+	// @Failure 428 showPetByIDPreconditionRequired
+	// @Failure 429 showPetByIDTooManyRequests
+	// @Failure 431 showPetByIDRequestHeaderFieldsTooLarge
+	// @Failure 451 showPetByIDUnavailableForLegalReasons
+	// @Failure 500 showPetByIDInternalServerError
+	// @Failure 501 showPetByIDNotImplemented
+	// @Failure 502 showPetByIDBadGateway
+	// @Failure 503 showPetByIDServiceUnavailable
+	// @Failure 504 showPetByIDGatewayTimeout
+	// @Failure 505 showPetByIDHTTPVersionNotSupported
+	// @Failure 506 showPetByIDVariantAlsoNegotiates
+	// @Failure 507 showPetByIDInsufficientStorage
+	// @Failure 508 showPetByIDLoopDetected
+	// @Failure 510 showPetByIDNotExtended
+	// @Failure 511 showPetByIDNetworkAuthenticationRequired
 	// @Router GET [/pets/{id}]
 	//
 	// The request can be executed using ShowPetByIDRequest.Execute()
@@ -198,80 +198,80 @@ type PetsAPI interface {
 
 	// ShowPetByIDExecute executes a ShowPetByIDRequest to return one
 	// of the possible ShowPetById success/error responses, the raw *http.Response and an error
-	ShowPetByIDExecute(ShowPetByIDRequest) (ShowPetByIDSuccess, ShowPetByIDError, *http.Response, error)
+	ShowPetByIDExecute(ShowPetByIDRequest) (showPetByIDSuccess, showPetByIDError, *http.Response, error)
 
-	// UpdatePet Creates a new UpdatePetRequest for 'UpdatePet'
+	// UpdatePet creates a new UpdatePetRequest for 'UpdatePet'
 	// @Summary edit a specific pet
 	// @Tags [pets]
 	// @Param id path The id of the pet to retrieve
-	// @Success 200 UpdatePetOK
-	// @Failure 400 UpdatePetBadRequest
-	// @Failure 401 UpdatePetUnauthorized
-	// @Failure 402 UpdatePetPaymentRequired
-	// @Failure 403 UpdatePetForbidden
-	// @Failure 404 UpdatePetNotFound
-	// @Failure 405 UpdatePetMethodNotAllowed
-	// @Failure 406 UpdatePetNotAcceptable
-	// @Failure 407 UpdatePetProxyAuthRequired
-	// @Failure 408 UpdatePetRequestTimeout
-	// @Failure 409 UpdatePetConflict
-	// @Failure 410 UpdatePetGone
-	// @Failure 411 UpdatePetLengthRequired
-	// @Failure 412 UpdatePetPreconditionFailed
-	// @Failure 413 UpdatePetRequestEntityTooLarge
-	// @Failure 414 UpdatePetRequestURITooLong
-	// @Failure 415 UpdatePetUnsupportedMediaType
-	// @Failure 416 UpdatePetRequestedRangeNotSatisfiable
-	// @Failure 417 UpdatePetExpectationFailed
-	// @Failure 418 UpdatePetTeapot
-	// @Failure 421 UpdatePetMisdirectedRequest
-	// @Failure 422 UpdatePetUnprocessableEntity
-	// @Failure 423 UpdatePetLocked
-	// @Failure 424 UpdatePetFailedDependency
-	// @Failure 425 UpdatePetTooEarly
-	// @Failure 426 UpdatePetUpgradeRequired
-	// @Failure 428 UpdatePetPreconditionRequired
-	// @Failure 429 UpdatePetTooManyRequests
-	// @Failure 431 UpdatePetRequestHeaderFieldsTooLarge
-	// @Failure 451 UpdatePetUnavailableForLegalReasons
-	// @Failure 500 UpdatePetInternalServerError
-	// @Failure 501 UpdatePetNotImplemented
-	// @Failure 502 UpdatePetBadGateway
-	// @Failure 503 UpdatePetServiceUnavailable
-	// @Failure 504 UpdatePetGatewayTimeout
-	// @Failure 505 UpdatePetHTTPVersionNotSupported
-	// @Failure 506 UpdatePetVariantAlsoNegotiates
-	// @Failure 507 UpdatePetInsufficientStorage
-	// @Failure 508 UpdatePetLoopDetected
-	// @Failure 510 UpdatePetNotExtended
-	// @Failure 511 UpdatePetNetworkAuthenticationRequired
+	// @Success 200 updatePetOK
+	// @Failure 400 updatePetBadRequest
+	// @Failure 401 updatePetUnauthorized
+	// @Failure 402 updatePetPaymentRequired
+	// @Failure 403 updatePetForbidden
+	// @Failure 404 updatePetNotFound
+	// @Failure 405 updatePetMethodNotAllowed
+	// @Failure 406 updatePetNotAcceptable
+	// @Failure 407 updatePetProxyAuthRequired
+	// @Failure 408 updatePetRequestTimeout
+	// @Failure 409 updatePetConflict
+	// @Failure 410 updatePetGone
+	// @Failure 411 updatePetLengthRequired
+	// @Failure 412 updatePetPreconditionFailed
+	// @Failure 413 updatePetRequestEntityTooLarge
+	// @Failure 414 updatePetRequestURITooLong
+	// @Failure 415 updatePetUnsupportedMediaType
+	// @Failure 416 updatePetRequestedRangeNotSatisfiable
+	// @Failure 417 updatePetExpectationFailed
+	// @Failure 418 updatePetTeapot
+	// @Failure 421 updatePetMisdirectedRequest
+	// @Failure 422 updatePetUnprocessableEntity
+	// @Failure 423 updatePetLocked
+	// @Failure 424 updatePetFailedDependency
+	// @Failure 425 updatePetTooEarly
+	// @Failure 426 updatePetUpgradeRequired
+	// @Failure 428 updatePetPreconditionRequired
+	// @Failure 429 updatePetTooManyRequests
+	// @Failure 431 updatePetRequestHeaderFieldsTooLarge
+	// @Failure 451 updatePetUnavailableForLegalReasons
+	// @Failure 500 updatePetInternalServerError
+	// @Failure 501 updatePetNotImplemented
+	// @Failure 502 updatePetBadGateway
+	// @Failure 503 updatePetServiceUnavailable
+	// @Failure 504 updatePetGatewayTimeout
+	// @Failure 505 updatePetHTTPVersionNotSupported
+	// @Failure 506 updatePetVariantAlsoNegotiates
+	// @Failure 507 updatePetInsufficientStorage
+	// @Failure 508 updatePetLoopDetected
+	// @Failure 510 updatePetNotExtended
+	// @Failure 511 updatePetNetworkAuthenticationRequired
 	// @Router PUT [/pets/{id}]
 	//
 	// The request can be executed using UpdatePetRequest.Execute()
-	UpdatePet(context.Context, UpdatePetParams) UpdatePetRequest
+	UpdatePet(context.Context, UpdatePetParams, UpdatePetBody) UpdatePetRequest
 
 	// UpdatePetExecute executes a UpdatePetRequest to return one
 	// of the possible UpdatePet success/error responses, the raw *http.Response and an error
-	UpdatePetExecute(UpdatePetRequest) (UpdatePetSuccess, UpdatePetError, *http.Response, error)
+	UpdatePetExecute(UpdatePetRequest) (updatePetSuccess, updatePetError, *http.Response, error)
 }
 
-// PetsService is registered on the root Client and can Create requests for the
+// PetsService is registered on the root Client and can create requests for the
 // operations grouped on 'pets' and execute them.
 type PetsService struct {
 	// Client used to execute requests
 	Client *http.Client
-	// Configuration used to Create requests
+	// Configuration used to create requests
 	Configuration *Configuration
 }
 
-// ListPetsSuccess must be implemented by all responses for GET /pets that indicate success
-type ListPetsSuccess interface {
-	requireTypeOf[ListPetsSuccess]
+// listPetsSuccess must be implemented by all responses for GET /pets that indicate success
+type listPetsSuccess interface {
+	requireTypeOf[listPetsSuccess]
 }
 
-// ListPetsError must be implemented by all responses GET /pets that indicate failure
-type ListPetsError interface {
-	requireTypeOf[ListPetsError]
+// listPetsError must be implemented by all responses GET /pets that indicate failure
+type listPetsError interface {
+	requireTypeOf[listPetsError]
 }
 
 // ListPetsParams are parsed from the URL for GET /pets
@@ -285,7 +285,7 @@ type ListPetsOk struct {
 	// MetaData contains metadata of the response, such as record count, pagination and other additional information.
 	Meta DefaultPaginatedMeta
 	Data []Pet
-	// Errors specifies a List of errors that occurred, can be filled using error handlers.
+	// Errors specifies a list of errors that occurred, can be filled using error handlers.
 	Errors DefaultPaginatedErrors
 }
 
@@ -612,13 +612,13 @@ func (a *PetsService) ListPets(ctx context.Context, params ListPetsParams) ListP
 
 // ListPetsExecute a ListPetsRequest on the PetsService
 // as a convenience function.
-func (a *PetsService) ListPetsExecute(r ListPetsRequest) (ListPetsSuccess, ListPetsError, *http.Response, error) {
+func (a *PetsService) ListPetsExecute(r ListPetsRequest) (listPetsSuccess, listPetsError, *http.Response, error) {
 	return r.Execute()
 }
 
 // ListPets the ListPetsRequest towards [GET] /pets and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
-func (r ListPetsRequest) Execute() (ListPetsSuccess, ListPetsError, *http.Response, error) {
+func (r ListPetsRequest) Execute() (listPetsSuccess, listPetsError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "ListPets")
 	log := logrus.WithContext(ctx)
 	defer span.End()
@@ -893,14 +893,14 @@ func (r ListPetsRequest) Execute() (ListPetsSuccess, ListPetsError, *http.Respon
 	return nil, nil, res, err
 }
 
-// CreatePetSuccess must be implemented by all responses for POST /pets that indicate success
-type CreatePetSuccess interface {
-	requireTypeOf[CreatePetSuccess]
+// createPetSuccess must be implemented by all responses for POST /pets that indicate success
+type createPetSuccess interface {
+	requireTypeOf[createPetSuccess]
 }
 
-// CreatePetError must be implemented by all responses POST /pets that indicate failure
-type CreatePetError interface {
-	requireTypeOf[CreatePetError]
+// createPetError must be implemented by all responses POST /pets that indicate failure
+type createPetError interface {
+	requireTypeOf[createPetError]
 }
 
 // CreatePetBody are parsed from the request body for POST /pets
@@ -914,7 +914,7 @@ type CreatePetCreated struct {
 	// MetaData contains metadata of the response, such as record count, pagination and other additional information.
 	Meta DefaultResponseMeta
 	Data Pet
-	// Errors specifies a List of errors that occurred, can be filled using error handlers.
+	// Errors specifies a list of errors that occurred, can be filled using error handlers.
 	Errors DefaultResponseErrors
 }
 
@@ -1244,13 +1244,13 @@ func (a *PetsService) CreatePet(ctx context.Context, body CreatePetBody) CreateP
 
 // CreatePetExecute a CreatePetRequest on the PetsService
 // as a convenience function.
-func (a *PetsService) CreatePetExecute(r CreatePetRequest) (CreatePetSuccess, CreatePetError, *http.Response, error) {
+func (a *PetsService) CreatePetExecute(r CreatePetRequest) (createPetSuccess, createPetError, *http.Response, error) {
 	return r.Execute()
 }
 
 // CreatePet the CreatePetRequest towards [POST] /pets and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
-func (r CreatePetRequest) Execute() (CreatePetSuccess, CreatePetError, *http.Response, error) {
+func (r CreatePetRequest) Execute() (createPetSuccess, createPetError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "CreatePet")
 	log := logrus.WithContext(ctx)
 	defer span.End()
@@ -1525,14 +1525,14 @@ func (r CreatePetRequest) Execute() (CreatePetSuccess, CreatePetError, *http.Res
 	return nil, nil, res, err
 }
 
-// DeletePetSuccess must be implemented by all responses for DELETE /pets/{id} that indicate success
-type DeletePetSuccess interface {
-	requireTypeOf[DeletePetSuccess]
+// deletePetSuccess must be implemented by all responses for DELETE /pets/{id} that indicate success
+type deletePetSuccess interface {
+	requireTypeOf[deletePetSuccess]
 }
 
-// DeletePetError must be implemented by all responses DELETE /pets/{id} that indicate failure
-type DeletePetError interface {
-	requireTypeOf[DeletePetError]
+// deletePetError must be implemented by all responses DELETE /pets/{id} that indicate failure
+type deletePetError interface {
+	requireTypeOf[deletePetError]
 }
 
 // DeletePetParams are parsed from the URL for DELETE /pets/{id}
@@ -1589,8 +1589,8 @@ func (a *PetsService) DeletePet(ctx context.Context, params DeletePetParams) Del
 
 	path := a.Configuration.BasePath + "/pets/{id}"
 	rawPath := path
-	path = strings.Replace(path, ":id", fmt.Sprint(params.ID), 1)
-	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.ID)), 1)
+	path = strings.Replace(path, ":id", fmt.Sprint(params.Id), 1)
+	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.Id)), 1)
 	query := []string{}
 
 	u := &url.URL{
@@ -1639,13 +1639,13 @@ func (a *PetsService) DeletePet(ctx context.Context, params DeletePetParams) Del
 
 // DeletePetExecute a DeletePetRequest on the PetsService
 // as a convenience function.
-func (a *PetsService) DeletePetExecute(r DeletePetRequest) (DeletePetSuccess, DeletePetError, *http.Response, error) {
+func (a *PetsService) DeletePetExecute(r DeletePetRequest) (deletePetSuccess, deletePetError, *http.Response, error) {
 	return r.Execute()
 }
 
 // DeletePet the DeletePetRequest towards [DELETE] /pets/{id} and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
-func (r DeletePetRequest) Execute() (DeletePetSuccess, DeletePetError, *http.Response, error) {
+func (r DeletePetRequest) Execute() (deletePetSuccess, deletePetError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "DeletePet")
 	log := logrus.WithContext(ctx)
 	defer span.End()
@@ -1735,14 +1735,14 @@ func (r DeletePetRequest) Execute() (DeletePetSuccess, DeletePetError, *http.Res
 	return nil, nil, res, err
 }
 
-// ShowPetByIDSuccess must be implemented by all responses for GET /pets/{id} that indicate success
-type ShowPetByIDSuccess interface {
-	requireTypeOf[ShowPetByIDSuccess]
+// showPetByIDSuccess must be implemented by all responses for GET /pets/{id} that indicate success
+type showPetByIDSuccess interface {
+	requireTypeOf[showPetByIDSuccess]
 }
 
-// ShowPetByIDError must be implemented by all responses GET /pets/{id} that indicate failure
-type ShowPetByIDError interface {
-	requireTypeOf[ShowPetByIDError]
+// showPetByIDError must be implemented by all responses GET /pets/{id} that indicate failure
+type showPetByIDError interface {
+	requireTypeOf[showPetByIDError]
 }
 
 // ShowPetByIDParams are parsed from the URL for GET /pets/{id}
@@ -1756,7 +1756,7 @@ type ShowPetByIDOk struct {
 	// MetaData contains metadata of the response, such as record count, pagination and other additional information.
 	Meta DefaultResponseMeta
 	Data Pet
-	// Errors specifies a List of errors that occurred, can be filled using error handlers.
+	// Errors specifies a list of errors that occurred, can be filled using error handlers.
 	Errors DefaultResponseErrors
 }
 
@@ -2029,8 +2029,8 @@ func (a *PetsService) ShowPetByID(ctx context.Context, params ShowPetByIDParams)
 
 	path := a.Configuration.BasePath + "/pets/{id}"
 	rawPath := path
-	path = strings.Replace(path, ":id", fmt.Sprint(params.ID), 1)
-	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.ID)), 1)
+	path = strings.Replace(path, ":id", fmt.Sprint(params.Id), 1)
+	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.Id)), 1)
 	query := []string{}
 
 	u := &url.URL{
@@ -2079,13 +2079,13 @@ func (a *PetsService) ShowPetByID(ctx context.Context, params ShowPetByIDParams)
 
 // ShowPetByIDExecute a ShowPetByIDRequest on the PetsService
 // as a convenience function.
-func (a *PetsService) ShowPetByIDExecute(r ShowPetByIDRequest) (ShowPetByIDSuccess, ShowPetByIDError, *http.Response, error) {
+func (a *PetsService) ShowPetByIDExecute(r ShowPetByIDRequest) (showPetByIDSuccess, showPetByIDError, *http.Response, error) {
 	return r.Execute()
 }
 
 // ShowPetByID the ShowPetByIDRequest towards [GET] /pets/{id} and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
-func (r ShowPetByIDRequest) Execute() (ShowPetByIDSuccess, ShowPetByIDError, *http.Response, error) {
+func (r ShowPetByIDRequest) Execute() (showPetByIDSuccess, showPetByIDError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "ShowPetById")
 	log := logrus.WithContext(ctx)
 	defer span.End()
@@ -2360,19 +2360,24 @@ func (r ShowPetByIDRequest) Execute() (ShowPetByIDSuccess, ShowPetByIDError, *ht
 	return nil, nil, res, err
 }
 
-// UpdatePetSuccess must be implemented by all responses for PUT /pets/{id} that indicate success
-type UpdatePetSuccess interface {
-	requireTypeOf[UpdatePetSuccess]
+// updatePetSuccess must be implemented by all responses for PUT /pets/{id} that indicate success
+type updatePetSuccess interface {
+	requireTypeOf[updatePetSuccess]
 }
 
-// UpdatePetError must be implemented by all responses PUT /pets/{id} that indicate failure
-type UpdatePetError interface {
-	requireTypeOf[UpdatePetError]
+// updatePetError must be implemented by all responses PUT /pets/{id} that indicate failure
+type updatePetError interface {
+	requireTypeOf[updatePetError]
 }
 
 // UpdatePetParams are parsed from the URL for PUT /pets/{id}
 type UpdatePetParams struct {
 	ID string `json:"id" uri:"id"`
+}
+
+// UpdatePetBody are parsed from the request body for PUT /pets/{id}
+type UpdatePetBody struct {
+	Pet
 }
 
 type UpdatePetOk struct {
@@ -2381,7 +2386,7 @@ type UpdatePetOk struct {
 	// MetaData contains metadata of the response, such as record count, pagination and other additional information.
 	Meta DefaultResponseMeta
 	Data Pet
-	// Errors specifies a List of errors that occurred, can be filled using error handlers.
+	// Errors specifies a list of errors that occurred, can be filled using error handlers.
 	Errors DefaultResponseErrors
 }
 
@@ -2644,7 +2649,7 @@ type UpdatePetRequest struct {
 }
 
 // UpdatePet constructs a new UpdatePetRequest
-func (a *PetsService) UpdatePet(ctx context.Context, params UpdatePetParams) UpdatePetRequest {
+func (a *PetsService) UpdatePet(ctx context.Context, params UpdatePetParams, body UpdatePetBody) UpdatePetRequest {
 	res := UpdatePetRequest{
 		Context:            ctx,
 		Client:             a.Client,
@@ -2654,8 +2659,8 @@ func (a *PetsService) UpdatePet(ctx context.Context, params UpdatePetParams) Upd
 
 	path := a.Configuration.BasePath + "/pets/{id}"
 	rawPath := path
-	path = strings.Replace(path, ":id", fmt.Sprint(params.ID), 1)
-	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.ID)), 1)
+	path = strings.Replace(path, ":id", fmt.Sprint(params.Id), 1)
+	rawPath = strings.Replace(rawPath, ":id", url.PathEscape(fmt.Sprint(params.Id)), 1)
 	query := []string{}
 
 	u := &url.URL{
@@ -2689,6 +2694,15 @@ func (a *PetsService) UpdatePet(ctx context.Context, params UpdatePetParams) Upd
 	carrier := propagation.HeaderCarrier(req.Header)
 	propagator := otel.GetTextMapPropagator()
 	propagator.Inject(ctx, carrier)
+	// add body to request
+	header["Content-Type"] = []string{"application/json"}
+	bodyBytes, err := json.Marshal(body)
+	if err != nil {
+		logrus.WithContext(ctx).WithError(err).Errorf("failed to marshal JSON body %v", body)
+		res.Error = err
+		return res
+	}
+	req.Body = io.NopCloser(bytes.NewReader(bodyBytes))
 
 	// Apply middlewares
 	for _, middleware := range a.Configuration.RequestMiddleware {
@@ -2704,13 +2718,13 @@ func (a *PetsService) UpdatePet(ctx context.Context, params UpdatePetParams) Upd
 
 // UpdatePetExecute a UpdatePetRequest on the PetsService
 // as a convenience function.
-func (a *PetsService) UpdatePetExecute(r UpdatePetRequest) (UpdatePetSuccess, UpdatePetError, *http.Response, error) {
+func (a *PetsService) UpdatePetExecute(r UpdatePetRequest) (updatePetSuccess, updatePetError, *http.Response, error) {
 	return r.Execute()
 }
 
 // UpdatePet the UpdatePetRequest towards [PUT] /pets/{id} and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
-func (r UpdatePetRequest) Execute() (UpdatePetSuccess, UpdatePetError, *http.Response, error) {
+func (r UpdatePetRequest) Execute() (updatePetSuccess, updatePetError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "UpdatePet")
 	log := logrus.WithContext(ctx)
 	defer span.End()

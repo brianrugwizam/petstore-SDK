@@ -21,10 +21,10 @@ import (
 // DefaultAPI holds the operations grouped on the 'Default' tag.
 type DefaultAPI interface {
 	// DeleteOrder creates a new DeleteOrderRequest for 'DeleteOrder'
-	// @Param orderId path ID of order that needs to be Deleted
+	// @Param orderID path ID of order that needs to be Deleted
 	// @Failure 400 DeleteOrderBadRequest
 	// @Failure 404 DeleteOrderNotFound
-	// @Router DELETE [/store/order/{orderId}]
+	// @Router DELETE [/store/order/{orderID}]
 	//
 	// The request can be executed using DeleteOrderRequest.Execute()
 	DeleteOrder(context.Context, DeleteOrderParams) DeleteOrderRequest
@@ -43,19 +43,19 @@ type DefaultService struct {
 	Configuration *Configuration
 }
 
-// DeleteOrderSuccess must be implemented by all responses for DELETE /store/order/{orderId} that indicate success
+// DeleteOrderSuccess must be implemented by all responses for DELETE /store/order/{orderID} that indicate success
 type DeleteOrderSuccess interface {
 	requireTypeOf[DeleteOrderSuccess]
 }
 
-// DeleteOrderError must be implemented by all responses DELETE /store/order/{orderId} that indicate failure
+// DeleteOrderError must be implemented by all responses DELETE /store/order/{orderID} that indicate failure
 type DeleteOrderError interface {
 	requireTypeOf[DeleteOrderError]
 }
 
-// DeleteOrderParams are parsed from the URL for DELETE /store/order/{orderId}
+// DeleteOrderParams are parsed from the URL for DELETE /store/order/{orderID}
 type DeleteOrderParams struct {
-	OrderID int64 `json:"orderId" uri:"orderId"`
+	OrderID int64 `json:"orderID" uri:"orderID"`
 }
 
 type DeleteOrderBadRequest struct {
@@ -95,10 +95,10 @@ func (a *DefaultService) DeleteOrder(ctx context.Context, params DeleteOrderPara
 		Metrics:            a.Configuration.Metrics,
 	}
 
-	path := a.Configuration.BasePath + "/store/order/{orderId}"
+	path := a.Configuration.BasePath + "/store/order/{orderID}"
 	rawPath := path
-	path = strings.Replace(path, ":orderId", fmt.Sprint(params.OrderID), 1)
-	rawPath = strings.Replace(rawPath, ":orderId", url.PathEscape(fmt.Sprint(params.OrderID)), 1)
+	path = strings.Replace(path, ":orderID", fmt.Sprint(params.OrderID), 1)
+	rawPath = strings.Replace(rawPath, ":orderID", url.PathEscape(fmt.Sprint(params.OrderID)), 1)
 	query := []string{}
 
 	u := &url.URL{
@@ -151,7 +151,7 @@ func (a *DefaultService) DeleteOrderExecute(r DeleteOrderRequest) (DeleteOrderSu
 	return r.Execute()
 }
 
-// DeleteOrder the DeleteOrderRequest towards [DELETE] /store/order/{orderId} and
+// DeleteOrder the DeleteOrderRequest towards [DELETE] /store/order/{orderID} and
 // return either the success response (1xx-3xx) or failure response (4xx-5xx), the raw *http.Response or an error if the request could not be executed
 func (r DeleteOrderRequest) Execute() (DeleteOrderSuccess, DeleteOrderError, *http.Response, error) {
 	ctx, span := otel.Tracer("").Start(r.Context, "DeleteOrder")
