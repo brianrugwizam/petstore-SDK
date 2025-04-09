@@ -1,0 +1,463 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$defs": {
+  "Format": {
+   "properties": {
+    "import": {
+     "type": "string",
+     "description": "Import is the Go package to include in the import statement"
+    },
+    "type": {
+     "type": "string",
+     "description": "Type to use in the Go code"
+    }
+   },
+   "additionalProperties": false,
+   "type": "object",
+   "required": [
+    "import",
+    "type"
+   ]
+  }
+ },
+ "properties": {
+  "plugins": {
+   "properties": {
+    "api": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path to the main API file, automatically generates a .gen.go version",
+       "default": "api.go"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "path"
+     ],
+     "title": "Config",
+     "description": "Generates an object that represents your API, with a method to configure an HTTP server, start event listeners and some options to generate commonly used configuration and settings.\n\nTypically generated at the root of your API directory, it will take in a router object and configure the HTTP routes with the callbacks from controllers attached."
+    },
+    "client": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "packageName": {
+       "type": "string",
+       "description": "Name of the generated package in the go module"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "packageName"
+     ],
+     "title": "Config",
+     "description": "If other Go APIs want to consume your endpoints, you may provide them with this generated SDK package which mirrors your API interface."
+    },
+    "config": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "configPath": {
+       "type": "string",
+       "description": "The path to generate the example config.yaml file to",
+       "default": "config/config.yaml"
+      },
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "Your API must behave differently in each environment it runs in, we typically employ a YAML file that you must mount in your OpenShift configuration. These values can be overridden using environment variables.\n\nThis plugin is required to use the api and main plugins."
+    },
+    "controllers": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "$defs": {
+      "Format": {
+       "properties": {
+        "import": {
+         "type": "string",
+         "description": "Import is the Go package to include in the import statement"
+        },
+        "type": {
+         "type": "string",
+         "description": "Type to use in the Go code"
+        }
+       },
+       "additionalProperties": false,
+       "type": "object",
+       "required": [
+        "import",
+        "type"
+       ]
+      }
+     },
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "formats": {
+       "additionalProperties": {
+        "$ref": "#/$defs/Format"
+       },
+       "type": "object",
+       "title": "Formats",
+       "description": "Formats can be used to map custom formats to Go types"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "Used to generate HTTP handlers that will seamlessly convert incoming HTTP requests into the schemas defined in your OpenAPI definition."
+    },
+    "database": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "useRecommendedDatabasePlugins": {
+       "type": "boolean",
+       "description": "Will generate a function that registers commonly used GORM plugins",
+       "default": true
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "useRecommendedDatabasePlugins"
+     ],
+     "title": "Config",
+     "description": "Useful for generating a gorm-based database object in your config that can then be accessed in your API struct"
+    },
+    "docker": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "pathToMain": {
+       "type": "string",
+       "description": "The relative path to the main.go file from the Dockerfile",
+       "default": "cmd/app/main.go"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "pathToMain"
+     ],
+     "title": "Config",
+     "description": "Deploying your application to openshift requires it to be in a container, this plugin generates a Dockerfile for that purpose. It also generates a docker-compose file to setup a local environment with a tracing backend, a database and a kafka bus."
+    },
+    "eventing": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "schemaPath": {
+       "type": "string",
+       "description": "directory to stored fetched Avro schemas in",
+       "default": "resources"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "Handling an event should be as easy as having a function accept an input object and letting an event framework do the rest. This plugin will use the event listening information from your OpenAPI and generate event listener structs with handler methods."
+    },
+    "gitignore": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path where to generate the .gitignore file at",
+       "default": ".gitignore"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "Generates a simple gitignore file with input from other plugins"
+    },
+    "golangcilint": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path where to generate the .golangci.yaml file at",
+       "default": ".golangci.yaml"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "A linter enforces a consistent style in your codebase and may even catch commonly made mistakes before code review even begins. We strongly recommend refining the configuration in your team and adjusting the settings to your liking."
+    },
+    "gomod": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path to the go.mod file",
+       "default": "go.mod"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "path"
+     ],
+     "title": "Config",
+     "description": "Generates an empty go.mod file at the root of your project with the specified module name and go version"
+    },
+    "main": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "configureMiddlewareMethod": {
+       "type": "boolean",
+       "description": "If enabled, will generate a configureMiddleware method with default settings for HTTP middleware",
+       "default": true
+      },
+      "configureTracingMethod": {
+       "type": "boolean",
+       "description": "If enabled, will generate a configureTracing method with default settings to add opentelemtry tracing to your application",
+       "default": true
+      },
+      "directoryPath": {
+       "type": "string",
+       "description": "The directory where the main.go file will reside",
+       "default": "cmd/app"
+      },
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "generateMainFunction": {
+       "type": "boolean",
+       "description": "If enabled, will generate a `main` function in the main.gen.go file and make the generated code responsible for maintaining the startup code of your application. If disabled, you'll have to maintain your own main method. You're allowed to steal the generated one",
+       "default": true
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled",
+      "directoryPath"
+     ],
+     "title": "Config",
+     "description": "The main.go file is the entrypoint of any Go application, and in your API is responsible for starting the HTTP server and connections to a database or event bus.\n\nThis plugin generates a main.go file at the specified location (usually cmd/my-api-name/main.go). We also include settings for tracing, HTTP middleware and a graceful shutdown."
+    },
+    "makefile": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path to the Makefile",
+       "default": "Makefile"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "We use a makefile to consolidate shell scripts that are useful during your development cycle, this will generate one with a few commonly used commands"
+    },
+    "openapi": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "This plugin generates a go file that exposes your entire openapi specification as a variable. It also provides the api plugin with a function to setup a swagger interface."
+    },
+    "readme": {
+     "$schema": "https://json-schema.org/draft/2020-12/schema",
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "path": {
+       "type": "string",
+       "description": "The path to the README file",
+       "default": "README.md"
+      }
+     },
+     "additionalProperties": false,
+     "type": "object",
+     "required": [
+      "enabled"
+     ],
+     "title": "Config",
+     "description": "Generates a (bare-bones) README at the root of your project that explains what the prerequisites are to run the project and how to set it up locally."
+    }
+   },
+   "patternProperties": {
+    "^.*$": {
+     "properties": {
+      "enabled": {
+       "type": "boolean",
+       "description": "Whether the plugin should be enabled during generation",
+       "default": false
+      },
+      "source": {
+       "properties": {
+        "module": {
+         "type": "string",
+         "description": "The full module path to this plugin",
+         "examples": [
+          "dev.azure.com/INGCDaaS/IngOne/_git/P30599-IPC-Generator.git/example/example-plugin"
+         ]
+        },
+        "version": {
+         "type": "string",
+         "description": "The version of the plugin, can be a commit hash or a version tag"
+        }
+       },
+       "type": "object",
+       "required": [
+        "module",
+        "version"
+       ],
+       "description": "Where to fetch this plugin from"
+      }
+     },
+     "additionalProperties": true,
+     "type": "object",
+     "required": [
+      "enabled"
+     ]
+    }
+   },
+   "additionalProperties": {
+    "type": "object"
+   },
+   "type": "object"
+  },
+  "project": {
+   "properties": {
+    "apiName": {
+     "type": "string",
+     "description": "The human-readable name of your API"
+    },
+    "fullModuleName": {
+     "type": "string",
+     "description": "The `module` field that gets generated in the go.mod file"
+    },
+    "goVersion": {
+     "type": "string",
+     "description": "The semantic version of the Go language you're using",
+     "default": "1.23.2"
+    },
+    "kebabName": {
+     "type": "string",
+     "description": "Kebab-cased version of your API's name"
+    },
+    "openAPISpecificationPath": {
+     "type": "string",
+     "description": "The path to the openapi specification file, usually ./openapi.yaml",
+     "default": "./openapi.yaml"
+    },
+    "rootPackageName": {
+     "type": "string",
+     "description": "The name of the package at the root of the api, usually \u003cname\u003eapi"
+    }
+   },
+   "additionalProperties": false,
+   "type": "object",
+   "required": [
+    "fullModuleName",
+    "rootPackageName",
+    "openAPISpecificationPath",
+    "apiName",
+    "kebabName",
+    "goVersion"
+   ]
+  }
+ },
+ "additionalProperties": false,
+ "type": "object",
+ "required": [
+  "project",
+  "plugins"
+ ],
+ "title": "Config"
+}

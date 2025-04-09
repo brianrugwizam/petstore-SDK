@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=.ipc-generator.schema.json
+plugins:
+    # If other Go APIs want to consume your endpoints, you may provide them with this
+    # generated SDK package which mirrors your API interface.
+    client:
+        # Whether the plugin should be enabled during generation
+        enabled: true
+        # Name of the generated package in the go module
+        packageName: testsdkgo # TODO: Fill this in
+project:
+    # The human-readable name of your API
+    apiName: SDKClient
+    # The `module` field that gets generated in the go.mod file
+    fullModuleName: github.com/brianrugwizam/petstore2
+    # The semantic version of the Go language you're using
+    goVersion: 1.23.2
+    # Kebab-cased version of your API's name
+    kebabName: testsdkgo
+    # The path to the openapi specification file, usually ./openapi.yaml
+    openAPISpecificationPath: ./api/openapi.yaml
+    # The name of the package at the root of the api, usually <name>api
+    rootPackageName: testsdkgo
